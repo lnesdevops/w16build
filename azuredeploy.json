@@ -11,12 +11,6 @@
         "adminPassword": {
             "type": "securestring"
         },
-        "sqlAuthenticationLogin": {
-            "type": "string"
-        },
-        "sqlAuthenticationPassword": {
-            "type": "securestring"
-        },
         "domainUsername": {
             "type": "string"
         },
@@ -36,17 +30,6 @@
         "diagnosticsStorageAccountName": "vfenv1rgdiag860",
         "diagnosticsStorageAccountId" : "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', variables('diagnosticsStorageAccountName'))]",
         "subnetName": "adSubnet",
-        "sqlConnectivityType": "Private",
-        "sqlPortNumber": 1433,
-        "sqlStorageDisksCount": 1,
-        "sqlStorageWorkloadType": "GENERAL",
-        "sqlStorageDisksConfigurationType": "NEW",
-        "sqlStorageStartingDeviceId": 2,
-        "sqlStorageDeploymentToken": 91868,
-        "sqlAutopatchingDayOfWeek": "Sunday",
-        "sqlAutopatchingStartHour": "2",
-        "sqlAutopatchingWindowDuration": "60",
-        "rServicesEnabled": "false",
         "dnsLabelPrefix": "[parameters('virtualMachineName')]",
         "domainToJoin": "lnvfdev.local",
         "domainJoinOptions": 3,
@@ -77,28 +60,17 @@
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "publisher": "MicrosoftSQLServer",
-                        "offer": "SQL2016SP2-WS2016",
-                        "sku": "Standard",
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
                         "version": "latest"
                     },
                     "osDisk": {
-                        "createOption": "fromImage",
+                        "createOption": "FromImage",
                         "managedDisk": {
                             "storageAccountType": "Standard_LRS"
                         }
-                    },
-                    "dataDisks": [
-                        {
-                            "createOption": "empty",
-                            "lun": 0,
-                            "diskSizeGB": "1023",
-                            "caching": "ReadOnly",
-                            "managedDisk": {
-                                "storageAccountType": "Standard_LRS"
-                            }
-                        }
-                    ]
+                    }
                 },
                 "networkProfile": {
                     "networkInterfaces": [
@@ -383,60 +355,6 @@
                     "storageAccountName": "[variables('diagnosticsStorageAccountName')]",
                     "storageAccountKey": "[listKeys(variables('diagnosticsStorageAccountId'),'2015-06-15').key1]",
                     "storageAccountEndPoint": "https://core.windows.net/"
-                }
-            }
-        },
-        {
-            "apiVersion": "2015-06-15",
-            "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(parameters('virtualMachineName'), '/SqlIaasExtension')]",
-            "location": "[variables('location')]",
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]",
-                "[concat('Microsoft.Compute/virtualMachines/',parameters('virtualMachineName'),'/extensions/', variables('diagnosticsExtensionName'))]"
-            ],
-            "properties": {
-                "type": "SqlIaaSAgent",
-                "publisher": "Microsoft.SqlServer.Management",
-                "typeHandlerVersion": "1.2",
-                "autoUpgradeMinorVersion": "true",
-                "settings": {
-                    "AutoTelemetrySettings": {
-                        "Region": "[variables('location')]"
-                    },
-                    "AutoPatchingSettings": {
-                        "PatchCategory": "WindowsMandatoryUpdates",
-                        "Enable": true,
-                        "DayOfWeek": "[variables('sqlAutopatchingDayOfWeek')]",
-                        "MaintenanceWindowStartingHour": "[variables('sqlAutopatchingStartHour')]",
-                        "MaintenanceWindowDuration": "[variables('sqlAutopatchingWindowDuration')]"
-                    },
-                    "KeyVaultCredentialSettings": {
-                        "Enable": false,
-                        "CredentialName": ""
-                    },
-                    "ServerConfigurationsManagementSettings": {
-                        "SQLConnectivityUpdateSettings": {
-                            "ConnectivityType": "[variables('sqlConnectivityType')]",
-                            "Port": "[variables('sqlPortNumber')]"
-                        },
-                        "SQLWorkloadTypeUpdateSettings": {
-                            "SQLWorkloadType": "[variables('sqlStorageWorkloadType')]"
-                        },
-                        "SQLStorageUpdateSettings": {
-                            "DiskCount": "[variables('sqlStorageDisksCount')]",
-                            "NumberOfColumns": "[variables('sqlStorageDisksCount')]",
-                            "StartingDeviceID": "[variables('sqlStorageStartingDeviceId')]",
-                            "DiskConfigurationType": "[variables('sqlStorageDisksConfigurationType')]"
-                        },
-                        "AdditionalFeaturesServerConfigurations": {
-                            "IsRServicesEnabled": "[variables('rServicesEnabled')]"
-                        }
-                    }
-                },
-                "protectedSettings": {
-                    "SQLAuthUpdateUserName": "[parameters('sqlAuthenticationLogin')]",
-                    "SQLAuthUpdatePassword": "[parameters('sqlAuthenticationPassword')]"
                 }
             }
         },
