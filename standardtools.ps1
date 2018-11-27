@@ -3,7 +3,8 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://cho
 
 $packages = 'googlechrome', `
             'visualstudiocode', `
-            'git'
+            'git', `
+            'libreoffice-fresh'
 
 forEach ($packageName in $packages){
     choco install $packageName -y
