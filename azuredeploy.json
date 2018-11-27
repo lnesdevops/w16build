@@ -33,7 +33,7 @@
         "dnsLabelPrefix": "[parameters('virtualMachineName')]",
         "domainToJoin": "lnvfdev.local",
         "domainJoinOptions": 3,
-        "StandardAppsURL": "https://raw.githubusercontent.com/lnesdevops/sqlbuild/master/standardtools.ps1",
+        "StandardAppsURL": "https://raw.githubusercontent.com/lnesdevops/w16build/master/standardtools.ps1",
         "StandardAppsScriptFolder": ".",
         "StandardAppsScriptFileName": "standardtools.ps1"
     },
