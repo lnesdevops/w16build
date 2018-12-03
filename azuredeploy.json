@@ -28,7 +28,7 @@
         "virtualNetworkName": "adVNET",
         "networkInterfaceName": "[concat(parameters('virtualMachineName'),'-NIC')]",
         "diagnosticsStorageAccountName": "vfenv1rgdiag860",
-        "diagnosticsStorageAccountId" : "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', variables('diagnosticsStorageAccountName'))]",
+        "diagnosticsStorageAccountId" : "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/vfenv1_rg/providers/Microsoft.Storage/storageAccounts/', variables('diagnosticsStorageAccountName'))]",
         "subnetName": "adSubnet",
         "dnsLabelPrefix": "[parameters('virtualMachineName')]",
         "domainToJoin": "lnvfdev.local",
