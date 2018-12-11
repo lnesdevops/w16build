@@ -39,7 +39,7 @@
         "autoShutdownStatus": "Enabled",
         "autoShutdownTime": "19:00",
         "autoShutdownTimeZone": "GMT Standard Time",
-        "autoShutdownNotificationStatus": "Enabled"
+        "autoShutdownNotificationStatus": "Disabled"
 	},
     "resources": [
         {
