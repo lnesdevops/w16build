@@ -405,7 +405,8 @@
                 "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]",
                 "notificationSettings": {
                     "status": "[variables('autoShutdownNotificationStatus')]",
-                    "timeInMinutes": "30"
+                    "timeInMinutes": "30",
+                    "webhookUrl": ""
                 }
             }
         },
