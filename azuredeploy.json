@@ -36,7 +36,11 @@
         "StandardAppsURL": "https://raw.githubusercontent.com/lnesdevops/w16build/master/standardtools.ps1",
         "StandardAppsScriptFolder": ".",
         "StandardAppsScriptFileName": "standardtools.ps1"
-    },
+		"autoShutdownStatus": "Enabled",
+		"autoShutdownTime": "19:00",
+		"autoShutdownTimeZone": "GMT Standard Time",
+		"autoShutdownNotificationStatus": "Enabled"
+	},
     "resources": [
         {
             "name": "[parameters('virtualMachineName')]",
